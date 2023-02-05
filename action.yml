@@ -1,0 +1,26 @@
+name: "Azure-PlayFab Function Sync"
+description: "Action syncs azure function app with playfab."
+author: rudyatkinson
+runs: 
+  using: node16
+  main: src/main.js
+inputs:
+  playfab-developer-secret-key:
+    required: true
+    description: "The secret key required for register functions. You can obtain from PlayFab title."
+  playfab-title-id:
+    required: true
+    description: "PlayFab title id that will be updated with function app urls."
+  azure-subscription-id:
+    required: true
+    description: "Subscription id which is includes function app."
+  azure-resource-group:
+    required: true
+    description: "Resource group name which is includes function app."
+  azure-function-app-name:
+    required: true
+    description: "The function app that will be uploaded."
+  playfab-clean-unused-functions:
+    required: false
+    default: false
+    description: "Playfab functions which are does not contains at Azure function app will be unregistered."
