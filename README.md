@@ -104,6 +104,11 @@ Action needs access token acquired from Azure for Azure ARM api requests. Access
 * [Create an Azure service principal with the Azure CLI](https://learn.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli)
 * [Create an Azure service principal in the portal](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal)
 
+## Changelogs
+### v1.0.1  
+* Renamed 'playfab-clean-unused-functions' to 'playfab-unregister-unused-functions' due to a naming typo.
+* The README has been updated with more details.
+
 ## The action generally supports 
 
 * `ubuntu-18.04`
