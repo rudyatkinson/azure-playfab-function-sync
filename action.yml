@@ -1,5 +1,5 @@
 name: "Azure-PlayFab Function Sync"
-description: "Action syncs azure function app with playfab."
+description: "Action syncs azure function app urls with playfab."
 author: rudyatkinson
 runs: 
   using: node16
