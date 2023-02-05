@@ -49,6 +49,40 @@ Action needs access token acquired from Azure for Azure ARM api requests. Access
     azure-function-app-name: ${{ secrets.APP_NAME }}
     playfab-clean-unused-functions: true
 ```
+  
+## Recommended Usage
+
+```
+- uses: actions/checkout@v3
+
+- name: Resolve
+  shell: bash
+  run: |
+    pushd './${{ secrets.APP_PACKAGE_PATH }}'
+    dotnet build --configuration Release --output ./output
+    popd
+    
+- name: Deploy
+  uses: Azure/functions-action@v1
+  with:
+    app-name: ${{ secrets.APP_NAME }}
+    package: '${{ secrets.APP_PACKAGE_PATH }}/output'
+    publish-profile: ${{ secrets.APP_PUBLISH_PROFILE }}
+    
+- name: Azure Login and Get Access Token
+  run: |
+      az login --service-principal -u ${{ secrets.AZURE_LOGIN_APP_ID }} -p ${{ secrets.AZURE_LOGIN_SECRET_VALUE }} --tenant ${{ secrets.AZURE_LOGIN_TENANT_ID }}
+      az account get-access-token --output json > "accessToken.json"
+          
+- uses: rudyatkinson/azure-playfab-function-sync@v1.0.0
+  with:
+    playfab-developer-secret-key: ${{ secrets.DEVELOPER_SECRET_KEY }}
+    playfab-title-id: ${{ secrets.TITLE_ID }}
+    azure-subscription-id: ${{ secrets.SUBSCRIPTION_ID}}
+    azure-resource-group: ${{ secrets.RESOURCE_GROUP }}
+    azure-function-app-name: ${{ secrets.APP_NAME }}
+    playfab-clean-unused-functions: true
+```
 
 ## Azure Service Principal Documents
 
@@ -65,3 +99,7 @@ Action needs access token acquired from Azure for Azure ARM api requests. Access
 * `macOS-12`
 * `windows-2019`
 * `windows-2022`
+
+## Additional Links
+
+* [Azure Functions Action](https://github.com/marketplace/actions/azure-functions-action)
