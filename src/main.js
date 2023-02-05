@@ -10,7 +10,7 @@ const titleId = core.getInput('playfab-title-id', { required: true });
 const subscriptionId = core.getInput('azure-subscription-id', { required: true });
 const resourceGroup = core.getInput('azure-resource-group', { required: true });
 const appName = core.getInput('azure-function-app-name', { required: true });
-const cleanUnusedFunctions = core.getInput('playfab-clean-unused-functions', {required: false})
+const unregisterUnusedFunctions = core.getInput('playfab-unregister-unused-functions', {required: false})
 
 var accessData;
 var playFabEntityToken;
@@ -83,7 +83,7 @@ function GetAzureFunctionList() {
         
         var data = response.value;
         
-        if(cleanUnusedFunctions.toLowerCase() === "true"){
+        if(unregisterUnusedFunctions.toLowerCase() === "true"){
             
             console.log('Unused Functions cleanup activated.');
             ClearUnusedFunctions(data);

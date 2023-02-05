@@ -23,7 +23,7 @@ inputs:
   azure-function-app-name:
     required: true
     description: "The function app that will be uploaded."
-  playfab-clean-unused-functions:
+  playfab-unregister-unused-functions:
     required: false
     default: false
     description: "Playfab functions which are does not contains at Azure function app will be unregistered."

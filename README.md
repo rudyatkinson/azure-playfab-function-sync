@@ -24,7 +24,7 @@ Action syncs Azure Function App URLs with PlayFab.
 
 **`Required`** The function app that will be uploaded.
 
-### `playfab-clean-unused-functions`
+### `playfab-unregister-unused-functions`
 
 **`Optional`** Playfab functions which are does not contains at Azure function app will be unregistered. The input must be **true** or **false**. Default value is **false**.
 
@@ -62,7 +62,7 @@ Action needs access token acquired from Azure for Azure ARM api requests. Access
     azure-subscription-id: ${{ secrets.SUBSCRIPTION_ID}}
     azure-resource-group: ${{ secrets.RESOURCE_GROUP }}
     azure-function-app-name: ${{ secrets.APP_NAME }}
-    playfab-clean-unused-functions: true
+    playfab-unregister-unused-functions: true
 ```
   
 ## Recommended Usage
@@ -96,7 +96,7 @@ Action needs access token acquired from Azure for Azure ARM api requests. Access
     azure-subscription-id: ${{ secrets.SUBSCRIPTION_ID}}
     azure-resource-group: ${{ secrets.RESOURCE_GROUP }}
     azure-function-app-name: ${{ secrets.APP_NAME }}
-    playfab-clean-unused-functions: true
+    playfab-unregister-unused-functions: true
 ```
 
 ## Azure Service Principal Documents
