@@ -40,7 +40,7 @@ Action needs access token acquired from Azure for Azure ARM api requests. Access
       az login --service-principal -u ${{ secrets.AZURE_LOGIN_APP_ID }} -p ${{ secrets.AZURE_LOGIN_SECRET_VALUE }} --tenant ${{ secrets.AZURE_LOGIN_TENANT_ID }}
       az account get-access-token --output json > "accessToken.json"
           
-- uses: rudyatkinson/azure-playfab-function-sync@v1.0.0
+- uses: rudyatkinson/azure-playfab-function-sync@v1.0.1
   with:
     playfab-developer-secret-key: ${{ secrets.DEVELOPER_SECRET_KEY }}
     playfab-title-id: ${{ secrets.TITLE_ID }}
@@ -74,7 +74,7 @@ Action needs access token acquired from Azure for Azure ARM api requests. Access
       az login --service-principal -u ${{ secrets.AZURE_LOGIN_APP_ID }} -p ${{ secrets.AZURE_LOGIN_SECRET_VALUE }} --tenant ${{ secrets.AZURE_LOGIN_TENANT_ID }}
       az account get-access-token --output json > "accessToken.json"
           
-- uses: rudyatkinson/azure-playfab-function-sync@v1.0.0
+- uses: rudyatkinson/azure-playfab-function-sync@v1.0.1
   with:
     playfab-developer-secret-key: ${{ secrets.DEVELOPER_SECRET_KEY }}
     playfab-title-id: ${{ secrets.TITLE_ID }}
