@@ -4,6 +4,9 @@ author: rudyatkinson
 runs: 
   using: node16
   main: src/main.js
+branding: 
+  icon: arrow-up-circle
+  color: blue
 inputs:
   playfab-developer-secret-key:
     required: true
