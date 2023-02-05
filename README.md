@@ -1,6 +1,6 @@
 # GitHub Action: Azure-PlayFab Function Sync
 
-This action syncs azure function app urls with playfab.
+Action syncs Azure Function App URLs with PlayFab.
 
 ## Inputs
 
@@ -27,6 +27,21 @@ This action syncs azure function app urls with playfab.
 ### `playfab-clean-unused-functions`
 
 **`Optional`** Playfab functions which are does not contains at Azure function app will be unregistered. The input must be **true** or **false**. Default value is **false**.
+
+## Requirements
+
+**`AzureWebJobsSecretStorageType`**  
+The Azure ARM API doesn't return functions for function apps with 'Blob' storage type. Set storage type to 'Files' to use the action.
+
+Follow the steps below to make changes;
+
+* Move to FunctionApp > Configuration.
+* Create 'AzureWebJobsSecretStorageType' in the application settings, if it doesn't exist.
+* Set its value to 'Files'.
+
+*AzureWebJobsSecretStorageType*
+
+*Specifies the repository or provider to use for key storage. Currently, the supported repositories are blob storage ("Blob") and the local file system ("Files"). The default is blob in version 2 and file system in version 1.*
 
 ## Example Usage
 
@@ -103,3 +118,4 @@ Action needs access token acquired from Azure for Azure ARM api requests. Access
 ## Additional Links
 
 * [Azure Functions Action](https://github.com/marketplace/actions/azure-functions-action)
+* [Azure Blob Storage vs File Storage – What’s the Difference?](https://cloudinfrastructureservices.co.uk/azure-blob-storage-vs-file-storage-whats-the-difference-pros-and-cons)
