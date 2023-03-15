@@ -1,4 +1,5 @@
 # GitHub Action: Azure-PlayFab Function Sync
+[![Actions Status](https://github.com/rudyatkinson/azure-playfab-function-sync-test/workflows/azure-playfab-function-sync-test/badge.svg)](https://github.com/rudyatkinson/azure-playfab-function-sync-test/actions)
 
 Action syncs Azure Function App URLs with PlayFab.
 
