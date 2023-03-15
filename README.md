@@ -112,10 +112,8 @@ Action needs access token acquired from Azure for Azure ARM api requests. Access
 
 ## The action generally supports 
 
-* `ubuntu-18.04`
 * `ubuntu-20.04`
 * `ubuntu-22.04`
-* `macOS-10.15`
 * `macOS-11`
 * `macOS-12`
 * `windows-2019`
