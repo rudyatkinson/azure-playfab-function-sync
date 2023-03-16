@@ -106,6 +106,8 @@ Action needs access token acquired from Azure for Azure ARM api requests. Access
 * [Create an Azure service principal in the portal](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal)
 
 ## Changelogs
+### 16/03/2023 Update
+* Created test repository and added an action status. From now on, every version will be automatically tested before it is published to ensure its quality and stability.
 ### v1.0.1  
 * Renamed 'playfab-clean-unused-functions' to 'playfab-unregister-unused-functions' due to a naming typo.
 * The README has been updated with more details.
