@@ -1,5 +1,5 @@
 # GitHub Action: Azure-PlayFab Function Sync
-[![Actions Status](https://github.com/rudyatkinson/azure-playfab-function-sync-test/workflows/azure-playfab-function-sync-test/badge.svg)](https://github.com/rudyatkinson/azure-playfab-function-sync-test/actions)
+[![Actions Status](https://github.com/rudyatkinson/azure-playfab-function-sync-test/workflows/azure-playfab-function-sync-latest-version-test/badge.svg)](https://github.com/rudyatkinson/azure-playfab-function-sync-test/actions)
 
 Action syncs Azure Function App URLs with PlayFab.
 
@@ -29,6 +29,18 @@ Action syncs Azure Function App URLs with PlayFab.
 
 **`Optional`** Playfab functions which are does not contains at Azure function app will be unregistered. The input must be **true** or **false**. Default value is **false**.
 
+### `azure-login-app-id`
+
+**`Optional`** App Id that taken from azure portal is required to login with az cli in action.
+
+### `azure-login-secret-value`
+
+**`Optional`** Secret Value that taken from azure portal is required to login with az cli in action.
+
+### `azure-login-tenant-id`
+
+**`Optional`** Tenant Id that taken from azure portal is required to login with az cli in action.
+
 ## Requirements
 
 **`AzureWebJobsSecretStorageType`**  
@@ -48,15 +60,12 @@ Follow the steps below to make changes;
 
 Action needs access token acquired from Azure for Azure ARM api requests. Access token will be denied that is obtained with Azure account login. Sign in with Service Principal required to get valid access token.  
 
+### With Internal Az Login
+
 ```
 - uses: actions/checkout@v3
-      
-- name: Azure Login and Get Access Token
-  run: |
-      az login --service-principal -u ${{ secrets.AZURE_LOGIN_APP_ID }} -p ${{ secrets.AZURE_LOGIN_SECRET_VALUE }} --tenant ${{ secrets.AZURE_LOGIN_TENANT_ID }}
-      az account get-access-token --output json > "accessToken.json"
           
-- uses: rudyatkinson/azure-playfab-function-sync@v1.0.1
+- uses: rudyatkinson/azure-playfab-function-sync@v1.1.0
   with:
     playfab-developer-secret-key: ${{ secrets.DEVELOPER_SECRET_KEY }}
     playfab-title-id: ${{ secrets.TITLE_ID }}
@@ -64,6 +73,28 @@ Action needs access token acquired from Azure for Azure ARM api requests. Access
     azure-resource-group: ${{ secrets.RESOURCE_GROUP }}
     azure-function-app-name: ${{ secrets.APP_NAME }}
     playfab-unregister-unused-functions: true
+    azure-login-app-id: ${{ secrets.AZURE_LOGIN_APP_ID }}
+    azure-login-secret-value: ${{ secrets.AZURE_LOGIN_SECRET_VALUE }}
+    azure-login-tenant-id: ${{ secrets.AZURE_LOGIN_TENANT_ID }}
+```
+### With External Az Login
+
+```
+- uses: actions/checkout@v3
+
+      - name: Azure Login and Get Access Token
+        run: |
+          az login --service-principal -u ${{ secrets.AZURE_LOGIN_APP_ID }} -p ${{ secrets.AZURE_LOGIN_SECRET_VALUE }} --tenant ${{ secrets.AZURE_LOGIN_TENANT_ID }}
+          az account get-access-token --output json > "accessToken.json"
+          
+      - uses: rudyatkinson/azure-playfab-function-sync@v1.1.0
+        with:
+          playfab-developer-secret-key: ${{ secrets.DEVELOPER_SECRET_KEY }}
+          playfab-title-id: ${{ secrets.TITLE_ID }}
+          azure-subscription-id: ${{ secrets.SUBSCRIPTION_ID}}
+          azure-resource-group: ${{ secrets.RESOURCE_GROUP }}
+          azure-function-app-name: ${{ secrets.APP_NAME }}
+          playfab-unregister-unused-functions: true
 ```
   
 ## Recommended Usage
@@ -84,13 +115,8 @@ Action needs access token acquired from Azure for Azure ARM api requests. Access
     app-name: ${{ secrets.APP_NAME }}
     package: '${{ secrets.APP_PACKAGE_PATH }}/output'
     publish-profile: ${{ secrets.APP_PUBLISH_PROFILE }}
-    
-- name: Azure Login and Get Access Token
-  run: |
-      az login --service-principal -u ${{ secrets.AZURE_LOGIN_APP_ID }} -p ${{ secrets.AZURE_LOGIN_SECRET_VALUE }} --tenant ${{ secrets.AZURE_LOGIN_TENANT_ID }}
-      az account get-access-token --output json > "accessToken.json"
           
-- uses: rudyatkinson/azure-playfab-function-sync@v1.0.1
+- uses: rudyatkinson/azure-playfab-function-sync@v1.1.0
   with:
     playfab-developer-secret-key: ${{ secrets.DEVELOPER_SECRET_KEY }}
     playfab-title-id: ${{ secrets.TITLE_ID }}
@@ -98,6 +124,9 @@ Action needs access token acquired from Azure for Azure ARM api requests. Access
     azure-resource-group: ${{ secrets.RESOURCE_GROUP }}
     azure-function-app-name: ${{ secrets.APP_NAME }}
     playfab-unregister-unused-functions: true
+    azure-login-app-id: ${{ secrets.AZURE_LOGIN_APP_ID }}
+    azure-login-secret-value: ${{ secrets.AZURE_LOGIN_SECRET_VALUE }}
+    azure-login-tenant-id: ${{ secrets.AZURE_LOGIN_TENANT_ID }}
 ```
 
 ## Azure Service Principal Documents
@@ -106,6 +135,8 @@ Action needs access token acquired from Azure for Azure ARM api requests. Access
 * [Create an Azure service principal in the portal](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal)
 
 ## Changelogs
+### v1.1.0
+* Az Login cli command executed in runtime now optionally if the necessary inputs are provided, If the inputs are not provided, 'az login' should run externally before using the action.
 ### 16/03/2023 Update
 * Created test repository and added an action status. From now on, every version will be automatically tested before it is published to ensure its quality and stability.
 ### v1.0.1  
