@@ -21,6 +21,7 @@
     "@actions/core": "^1.10.0",
     "@actions/github": "^5.1.1",
     "node-fetch": "2.0",
-    "playfab-sdk": "^2.114.221107"
+    "playfab-sdk": "^2.114.221107",
+    "shelljs": "^0.8.5"
   }
 }
