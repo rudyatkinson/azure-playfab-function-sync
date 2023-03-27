@@ -27,3 +27,15 @@ inputs:
     required: false
     default: false
     description: "Playfab functions which are does not contains at Azure function app will be unregistered."
+  azure-login-app-id:
+    required: false
+    default: ''
+    description: "App Id that taken from azure portal is required to login with az cli in action."
+  azure-login-secret-value:
+    required: false
+    default: ''
+    description: "Secret Value that taken from azure portal is required to login with az cli in action."
+  azure-login-tenant-id:
+    required: false
+    default: ''
+    description: "Tenant Id that taken from azure portal is required to login with az cli in action."

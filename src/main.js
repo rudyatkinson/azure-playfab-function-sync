@@ -4,13 +4,17 @@ const playFabAuthentication = require("playfab-sdk/Scripts/PlayFab/PlayFabAuthen
 const playFabCloudScript = require("playfab-sdk/Scripts/PlayFab/PlayFabCloudScript");
 const fetch = require('node-fetch');
 const fs = require("fs");
+const shell = require('shelljs');
 
 const developerSecretKey = core.getInput('playfab-developer-secret-key', { required: true });
 const titleId = core.getInput('playfab-title-id', { required: true });
 const subscriptionId = core.getInput('azure-subscription-id', { required: true });
 const resourceGroup = core.getInput('azure-resource-group', { required: true });
 const appName = core.getInput('azure-function-app-name', { required: true });
-const unregisterUnusedFunctions = core.getInput('playfab-unregister-unused-functions', {required: false})
+const unregisterUnusedFunctions = core.getInput('playfab-unregister-unused-functions', {required: false});
+const azureLoginAppId = core.getInput('azure-login-app-id', {required: false});
+const azureLoginSecretValue = core.getInput('azure-login-secret-value', {required: false});
+const azureLoginTenantId = core.getInput('azure-login-tenant-id', {required: false});
 
 var accessData;
 var playFabEntityToken;
@@ -22,6 +26,16 @@ async function run() {
 }
 
 function SetupAzureAuthenticationAndRun() {
+
+    var azLoginExec = shell.exec('az login --service-principal -u ' + azureLoginAppId + ' -p ' + azureLoginSecretValue + ' --tenant ' + azureLoginTenantId);
+
+    if(azLoginExec.code !== 1) {
+        var azGetAccessTokenExec = shell.exec('az account get-access-token --output json > "accessToken.json"');
+        core.notice('az get access token code: ' + azGetAccessTokenExec.code);
+    }
+    else {
+        core.notice('az login failed.');
+    }
     
     fs.readFile("./accessToken.json", "utf8", (err, jsonString) => {
         if (err) {
